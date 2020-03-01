@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 
 app.get('/', (_req, res) => {
-     res.send('Hello World!');
+     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+     const response = { message: 'Hello World!' };
+     res.send(response);
 });
 
-app.listen(3000);
+app.listen(4200);
