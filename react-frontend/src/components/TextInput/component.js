@@ -3,7 +3,12 @@ import React from 'react';
 class TextInput extends React.Component {
     constructor(props) {
         super(props);
-        this.name = this.props.label.split(' ').map((label, index) => {
+
+        this.name = this.toCamelCase(this.props.label);
+    }
+
+    toCamelCase(name) {
+        return name.split(' ').map((label, index) => {
             if (index === 0) {
                 return label.toLowerCase();
             } else {
