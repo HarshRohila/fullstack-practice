@@ -1,6 +1,7 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
+import SignUpForm from './components/SignUpForm/SignUpForm';
 
 function App() {
   fetch('http://localhost:4200')
@@ -23,7 +24,7 @@ function App() {
           Learn React
         </a>
       </header> */}
-
+      <SignUpForm></SignUpForm>
     </div>
   );
 }
