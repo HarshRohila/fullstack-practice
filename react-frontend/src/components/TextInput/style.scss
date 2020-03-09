@@ -1,4 +1,4 @@
-$padding: 5px;
+$padding: 8px;
 
 .text-input {
     position: relative;
@@ -7,6 +7,7 @@ $padding: 5px;
         position: absolute;
         top: $padding;
         transform: translate($padding);
+        transition: all 0.1s;
     }
     &.focused {
         span {
@@ -17,5 +18,7 @@ $padding: 5px;
     }
     input {
         padding: $padding;
+        border-radius: 5px;
+        border: 1px solid;
     }
 }
