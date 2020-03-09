@@ -24,3 +24,9 @@ test('type works', () => {
     expect(container.querySelector('input').type).toMatch(/password/);
 });
 
+test('label sets name in camelcase', () => {
+    act(() => {
+        render(<TextInput label="Text Input"/>, container);
+    });
+    expect(container.querySelector('input').name).toMatch(/textInput/);
+});
