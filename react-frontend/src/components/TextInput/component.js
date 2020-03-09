@@ -4,7 +4,8 @@ class TextInput extends React.Component {
     constructor(props) {
         super(props);
 
-        this.name = this.toCamelCase(this.props.label);
+        const label = this.props.label || '';
+        this.name = this.toCamelCase(label);
     }
 
     toCamelCase(name) {
