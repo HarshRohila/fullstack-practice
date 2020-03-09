@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.scss';
 
 class TextInput extends React.Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class TextInput extends React.Component {
 
     render() {
         return (
-            <label> {this.props.label}
+            <label className="text-input"> 
+                <span>{this.props.label}</span>
                 <input type={this.props.type ? this.props.type : 'text'} name={this.name} value={this.props.value} onChange={this.props.onChange}></input>
             </label>
         );
