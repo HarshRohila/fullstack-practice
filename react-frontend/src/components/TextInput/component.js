@@ -7,6 +7,10 @@ class TextInput extends React.Component {
 
         const label = this.props.label || '';
         this.name = this.toCamelCase(label);
+
+        this.state = {
+            isFocused: false
+        }
     }
 
     toCamelCase(name) {
@@ -19,11 +23,26 @@ class TextInput extends React.Component {
         }).join('');
     }
 
+    onFocus() {
+        this.setState({ isFocused: true });
+    }
+
+    onBlur() {
+        this.setState({ isFocused: false });
+    }
+
     render() {
+        const className = `text-input ${this.state.isFocused ? 'focused': ''}`;
         return (
-            <label className="text-input"> 
+            <label className={className}> 
                 <span>{this.props.label}</span>
-                <input type={this.props.type ? this.props.type : 'text'} name={this.name} value={this.props.value} onChange={this.props.onChange}></input>
+                <input 
+                    type={this.props.type ? this.props.type : 'text'} 
+                    name={this.name} value={this.props.value} 
+                    onChange={this.props.onChange}
+                    onFocus={this.onFocus.bind(this)}
+                    onBlur={this.onBlur.bind(this)}>
+                </input>
             </label>
         );
     }
