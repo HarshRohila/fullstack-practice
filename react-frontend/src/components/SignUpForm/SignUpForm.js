@@ -16,11 +16,26 @@ class SignUpForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleSubmit(e) {
-        console.log('submitted successfully');
-        e.preventDefault();
+    doPost(body) {
+        fetch('http://localhost:4200/user', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(err => console.error(err));
     }
 
+    handleSubmit(e) {
+        console.log('submitted successfully');
+        console.log(this.state);
+        this.doPost(this.state);
+        e.preventDefault();
+    }
+    
     handleChange(e) {
         const { name, value } = e.target;
         this.setState({ [name]: value });
