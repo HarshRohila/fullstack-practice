@@ -6,10 +6,11 @@ import { useForm } from "react-hook-form";
 function SignUpForm() {
     const { register, handleSubmit, errors, watch } = useForm(); 
 
-    const onSubmit = (d: any) => console.log(d);
     const password = useRef({});
     password.current = watch('password', '');
-    
+
+    const onSubmit = (formData: any) => doPost(formData);
+
         return (    
             <form className="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
 
@@ -59,75 +60,17 @@ function SignUpForm() {
         );   
 }
 
-// class SignUpForm extends React.Component {
-//     constructor(props: Readonly<{}>) {
-//         super(props);
-//         this.state = {
-//             firstName: '',
-//             lastName: '',
-//             userName: '',
-//             password: '',
-//             confirmPassword: '',
-//         };
-//         this.onSubmit = this.onSubmit.bind(this);
-//         // this.handleChange = this.handleChange.bind(this);
-//     }
-
-//     doPost(body: Readonly<{}>) {
-//         fetch('http://localhost:4200/user', { 
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 body: JSON.stringify(body)
-//             })
-//             .then(res => res.json())
-//             .then(res => console.log(res))
-//             .catch(err => console.error(err));
-//     }
-
-//     onSubmit() {
-//         console.log('submitted successfully');
-//         console.log(this.state);
-//         this.doPost(this.state);
-//         // e.preventDefault();
-//     }
-
-//     // handleChange(e) {
-//     //     const { name, value } = e.target;
-//     //     this.setState({ [name]: value });
-//     // }
-
-//     // render() {
-//     //     return (
-//     //         <form className="sign-up-form" onSubmit={this.handleSubmit}>
-//     //           <TextInput label="First Name" value={this.state.firstName} onChange={this.handleChange}></TextInput>
-//     //           <TextInput label="Last Name" value={this.state.lastName} onChange={this.handleChange}></TextInput>
-//     //           <TextInput label="User Name" value={this.state.userName} onChange={this.handleChange}></TextInput>
-//     //           <TextInput label="Password" type="password" value={this.state.password} onChange={this.handleChange}></TextInput>
-//     //           <TextInput label="Confirm Password" type="password" value={this.state.confirmPassword} onChange={this.handleChange}></TextInput>
-//     //           <input type="submit"></input>
-//     //         </form>
-//     //     );        
-//     // }
-
-//     render() {
-//         const { register, handleSubmit, errors } = useForm(); 
-
-//         return (    
-//             <form className="sign-up-form" onSubmit={handleSubmit(this.onSubmit)}>
-//                 <input name="firstName" ref={register({ required: true, minLength: 3 })} />
-//                 <input name="lastName" ref={register} />
-//                 <input name="userName" ref={register({ required: true, minLength: 3 })} />
-//                 <input name="password" type="password" ref={register({ required: true, minLength: 8 })} />
-//                 {errors.multipleErrorInput &&
-//                 errors.multipleErrorInput.type === "required" && "Password is required" &&
-//                 errors.multipleErrorInput.type === "minLength" && "Password should be atleast of 8 characters"}
-//                 <input name="confirmPassword" type="password" ref={register({ required: true, minLength: 8 })} />
-//               <input type="submit" />
-//             </form>
-//         );        
-//     }
-// }
+function doPost(formData: any) {
+    fetch('http://localhost:4200/user', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(err => console.error(err));
+}
 
 export default SignUpForm;
