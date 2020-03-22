@@ -1,51 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.scss';
 
-class TextInput extends React.Component {
-    constructor(props) {
-        super(props);
+function TextInput(props) {
 
-        const label = this.props.label || '';
-        this.name = this.toCamelCase(label);
+    const [isFocused, setIsFocused] = useState(false);
+    const focusedClass = `${isFocused ? 'focused': ''}`;
 
-        this.state = {
-            isFocused: false
-        }
-    }
+    const isFilledClass = `${props.value ? 'is-filled': ''}`;
 
-    toCamelCase(name) {
-        return name.split(' ').map((label, index) => {
-            if (index === 0) {
-                return label.toLowerCase();
-            } else {
-                return label.charAt(0).toUpperCase() + label.slice(1);
-            }
-        }).join('');
-    }
+    const className = `text-input ${isFilledClass} ${focusedClass}`;
 
-    onFocus() {
-        this.setState({ isFocused: true });
-    }
+    const name = toCamelCase(props.label);
 
-    onBlur() {
-        this.setState({ isFocused: false });
-    }
+    const error = props.error;
 
-    render() {
-        const className = `text-input ${this.state.isFocused ? 'focused': ''}`;
-        return (
+    return (
+        <React.Fragment>
             <label className={className}> 
-                <span>{this.props.label}</span>
+                <span>{props.label}</span>
                 <input 
-                    type={this.props.type ? this.props.type : 'text'} 
-                    name={this.name} value={this.props.value} 
-                    onChange={this.props.onChange}
-                    onFocus={this.onFocus.bind(this)}
-                    onBlur={this.onBlur.bind(this)}>
+                    type={props.type ? props.type : 'text'} 
+                    name={name}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    ref={props.inputRef}>
                 </input>
             </label>
-        );
-    }
+            {error && error.message}
+        </React.Fragment>
+    ); 
+
+}
+
+function toCamelCase(name) {
+    return name.split(' ').map((label, index) => {
+        if (index === 0) {
+            return label.toLowerCase();
+        } else {
+            return label.charAt(0).toUpperCase() + label.slice(1);
+        }
+    }).join('');
 }
 
 export default TextInput;
