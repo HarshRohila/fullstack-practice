@@ -1,4 +1,5 @@
 $padding: 8px;
+$color: blueviolet;
 
 .text-input {
     position: relative;
@@ -9,16 +10,26 @@ $padding: 8px;
         transform: translate($padding);
         transition: all 0.1s;
     }
-    &.focused {
+    &.focused, &.is-filled {
         span {
             top: -16px;
             transform: translate(0);
             font-size: 12px;
         }
     }
+    &.focused {
+        span {
+            color: $color;
+        }
+        input {
+            border-color: $color;
+            color: $color;
+        }
+    }
     input {
         padding: $padding;
         border-radius: 5px;
         border: 1px solid;
+        outline: none;
     }
 }
