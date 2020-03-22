@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './SignUpForm.css';
 import TextInput from '../TextInput/component';
 import { useForm } from "react-hook-form";
@@ -7,7 +7,9 @@ function SignUpForm() {
     const { register, handleSubmit, errors, watch } = useForm(); 
 
     const onSubmit = (d: any) => console.log(d);
-
+    const password = useRef({});
+    password.current = watch('password', '');
+    
         return (    
             <form className="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
 
@@ -47,7 +49,8 @@ function SignUpForm() {
                     inputRef={register({ required: 'Password is required', minLength: {
                         value: 8,
                         message: 'Password should be atleast of 8 characters'
-                    } })}
+                    },
+                    validate: value =>value === password.current || "The passwords do not match" })}
                     error={errors.confirmPassword}
                     value={watch('confirmPassword')} />
 
